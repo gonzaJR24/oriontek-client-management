@@ -10,7 +10,8 @@ Oriontek Client Management es una API REST para gestionar clientes y sus direcci
 - PostgreSQL 15 (Dockerizado)  
 - Maven  
 - Mockito + JUnit 5 (testing)  
-- Docker & Docker Compose  
+- Docker & Docker Compose
+- Swagger/OpenAPI (documentación automática)
 
 ---
 
@@ -18,7 +19,8 @@ Oriontek Client Management es una API REST para gestionar clientes y sus direcci
 - CQRS: separación clara entre comandos (modificación) y consultas (lectura).  
 - DTOs para encapsular datos de entrada/salida.  
 - Controladores REST para exponer la API.  
-- Manejo de errores con ControllerAdvice (pendiente).  
+- Manejo de errores con ControllerAdvice (pendiente).
+- Documentación automática vía Swagger UI (`/swagger-ui.html`).
 
 ---
 
@@ -34,12 +36,21 @@ POSTGRES_DB=tu_basededatos
 
 2. Levantar la base de datos:
 
+```bash
 docker-compose up -d
+```
+
 
 3. Genera el jar y corre la app:
    
+</code></pre>
+
+Esto lo mostrará como:
+
+```bash
 ./mvnw clean package
 java -jar target/oriontek-client-management.jar
+```
 
 Endpoints principales
 
