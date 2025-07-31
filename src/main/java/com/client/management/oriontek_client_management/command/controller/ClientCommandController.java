@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.client.management.oriontek_client_management.command.dto.CreateClientCommand;
 import com.client.management.oriontek_client_management.command.dto.EditClientCommand;
 import com.client.management.oriontek_client_management.command.service.ClientCommandService;
+import com.client.management.oriontek_client_management.domain.models.ClientEntity;
 
 import jakarta.validation.Valid;
 
@@ -24,21 +25,21 @@ public class ClientCommandController {
     private ClientCommandService clientService;
 
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody CreateClientCommand client){
-        clientService.handleCreate(client);
-        return ResponseEntity.status(HttpStatus.CREATED).body(client);
+    public ResponseEntity<?> create(@Valid @RequestBody CreateClientCommand client) {
+        ClientEntity created = clientService.handleCreate(client);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> edit(@PathVariable Long id, @Valid @RequestBody EditClientCommand client){
-        EditClientCommand updatedClient= clientService.handleEdit(id, client);
+    public ResponseEntity<?> edit(@PathVariable Long id, @Valid @RequestBody EditClientCommand client) {
+        ClientEntity updatedClient = clientService.handleEdit(id, client);
         return ResponseEntity.status(HttpStatus.OK).body(updatedClient);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         clientService.handleDelete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("borrado exitosamente");
+        return ResponseEntity.noContent().build();
     }
 
 }

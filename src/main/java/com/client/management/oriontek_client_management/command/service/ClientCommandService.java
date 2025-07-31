@@ -3,7 +3,6 @@ package com.client.management.oriontek_client_management.command.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.client.management.oriontek_client_management.command.dto.CreateAddressCommand;
 import com.client.management.oriontek_client_management.command.dto.CreateClientCommand;
 import com.client.management.oriontek_client_management.command.dto.EditClientCommand;
 import com.client.management.oriontek_client_management.domain.enums.ClientType;
@@ -36,21 +35,23 @@ public class ClientCommandService {
     }
 
     @Transactional
-    public void handleDelete(Long id) {
-        clientRepository.deleteById(id);
-    }
-
-    @Transactional
-    public EditClientCommand handleEdit(Long id, EditClientCommand command) {
+    public ClientEntity handleEdit(Long id, EditClientCommand command) {
         ClientEntity existingClient = clientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado"));
 
         existingClient.setName(command.name());
         existingClient.setType(ClientType.valueOf(command.type().name().toUpperCase()));
-        
 
-        return new EditClientCommand(id, existingClient.getType(),existingClient.getName(), command.addresses());
+        clientRepository.save(existingClient);
+        return existingClient;
     }
 
+    @Transactional
+    public void handleDelete(Long id) {
+        if (!clientRepository.existsById(id)) {
+            throw new EntityNotFoundException("Cliente no encontrado para eliminar");
+        }
+        clientRepository.deleteById(id);
+    }
 
 }
