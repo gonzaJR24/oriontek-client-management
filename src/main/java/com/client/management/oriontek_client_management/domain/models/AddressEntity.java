@@ -36,12 +36,12 @@ public class AddressEntity {
     private String street;
 
     @Column(name = "ciudad")
-    @Size(min = 4, max = 50)
+    @Size(min = 2, max = 50)
     @NotEmpty
     private String city;
 
     @Column(name = "provincia")
-    @Size(min = 4, max = 50)
+    @Size(min = 2, max = 50)
     @NotEmpty
     private String province;
 
@@ -50,7 +50,7 @@ public class AddressEntity {
     private String number;
 
     @Column(name = "pais")
-    @Size(min = 4, max = 50)
+    @Size(min = 2, max = 50)
     @NotEmpty
     private String country;
 
@@ -65,4 +65,17 @@ public class AddressEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private ClientEntity client;
+
+    public AddressEntity(@Size(min = 4, max = 100) @NotEmpty String street,
+            @Size(min = 4, max = 50) @NotEmpty String city, @Size(min = 4, max = 50) @NotEmpty String province,
+            @NotEmpty String number, @Size(min = 4, max = 50) @NotEmpty String country, ClientEntity client) {
+        this.street = street;
+        this.city = city;
+        this.province = province;
+        this.number = number;
+        this.country = country;
+        this.client = client;
+    }
+
+    
 }
