@@ -19,8 +19,9 @@ Oriontek Client Management es una API REST para gestionar clientes y sus direcci
 - CQRS: separación clara entre comandos (modificación) y consultas (lectura).  
 - DTOs para encapsular datos de entrada/salida.  
 - Controladores REST para exponer la API.  
-- Manejo de errores con ControllerAdvice (pendiente).
+- Manejo de errores con ControllerAdvice.
 - Documentación automática vía Swagger UI (`/swagger-ui.html`).
+- dockerización completa de la aplicación(pendiente)
 
 ---
 
