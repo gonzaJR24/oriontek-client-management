@@ -87,22 +87,14 @@ public class ClientCommandServiceTest {
 
     @Test
     public void testHandleDelete() {
-        // Given
-        ClientEntity mockEntity = new ClientEntity();
-        mockEntity.setId(1L);
-        mockEntity.setName("Prueba cliente SA");
-        mockEntity.setType(ClientType.PERSONA_FISICA);
-        mockEntity.setAddresses(Collections.emptyList());
-
         Long cliente_id = 1L;
 
+        when(clientRepository.existsById(cliente_id)).thenReturn(true);
         doNothing().when(clientRepository).deleteById(cliente_id);
 
-        // Then
         clientCommandService.handleDelete(cliente_id);
 
         verify(clientRepository).deleteById(cliente_id);
-
     }
 
 }
